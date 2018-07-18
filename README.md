@@ -1,16 +1,18 @@
 # survivor_game
 """
-version 3,survivor game
+version 5,survivor game
 """
-from collections import deque
 def survivor(total):
-    qlst_survivor1 = deque(list(range(1, total + 1)))
-    while len(qlst_survivor1) != 1:  #剩余元素数大于1，继续下一轮 
-        qlst_survivor1.remove(qlst_survivor1[1]) #第二个元素毙掉，后面元素往前顺位+1
-        qlst_survivor1.rotate(-1)  #所有元素顺位再往前+1
-    else:
-        print('the survivor is {}'.format(qlst_survivor1[0]))
-        
+    lst_survivor1 = list(range(1, total + 1))
+    while len(lst_survivor1) != 1:  #剩余元素数大于1，继续下一轮  
+        if len(lst_survivor1) % 2 == 0: #如果存活人数为偶数，第 1，3，5* 元素死亡
+            del lst_survivor1[1::2]           
+        else:
+            del lst_survivor1[1::2] 
+            del lst_survivor1[0]    
+    else:                                       #剩余元素为1时打印survivor
+       # print('the survivor is {}'.format(lst_survivor1[0]))
+            
 if __name__ == "__main__":
     total = int(input('Please enter the total number of people enrolling the game:[11] '))
     survivor(total)
